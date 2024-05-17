@@ -1,12 +1,12 @@
 // src/components/SearchBar.js
 import React, { useState, useEffect } from 'react';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, onFocus }) => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
     onSearch(query);
-  }, [query, onSearch]);
+  }, [query]);
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -18,6 +18,7 @@ const SearchBar = ({ onSearch }) => {
         type="text"
         value={query}
         onChange={handleInputChange}
+        onFocus={onFocus}
         placeholder="Search for a character"
       />
     </div>
