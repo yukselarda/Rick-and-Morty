@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchBar from '../components/SearchBar';
+import Select, { components } from 'react-select';
 import CharacterList from '../components/CharacterList';
 
 const HomePage = () => {
@@ -9,32 +9,49 @@ const HomePage = () => {
     const savedCharacters = localStorage.getItem('selectedCharacters');
     return savedCharacters ? JSON.parse(savedCharacters) : [];
   });
-  const [showResults, setShowResults] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState('');
+  const [cache, setCache] = useState(() => {
+    const savedCache = sessionStorage.getItem('cache');
+    return savedCache ? JSON.parse(savedCache) : [];
+  });
 
-  const fetchCharacters = useCallback(async (query) => {
-    setLoading(true);
+  useEffect(() => {
+    localStorage.setItem('selectedCharacters', JSON.stringify(selectedCharacters));
+  }, [selectedCharacters]);
 
-    const cachedCharacters = sessionStorage.getItem(query);
+  useEffect(() => {
+    sessionStorage.setItem('cache', JSON.stringify(cache));
+  }, [cache]);
+
+  const fetchCharacters = async (query) => {
+    if (!query) {
+      setCharacters([]);
+      return;
+    }
+
+    const cachedCharacters = cache.find(item => item.query === query);
     if (cachedCharacters) {
-      setCharacters(JSON.parse(cachedCharacters));
-      setLoading(false);
+      setCharacters(cachedCharacters.results);
     } else {
       try {
         const response = await axios.get(`https://rickandmortyapi.com/api/character/?name=${query}`);
         const results = response.data.results;
         setCharacters(results);
-        sessionStorage.setItem(query, JSON.stringify(results));
-        setLoading(false);
+        setCache(prevCache => [...prevCache, { query, results }]);
       } catch (error) {
         setCharacters([]);
-        setLoading(false);
         console.error("Error fetching characters:", error);
       }
     }
-  }, []);
+  };
 
-  const handleCharacterSelect = (character) => {
+  const handleInputChange = (inputValue) => {
+    setQuery(inputValue);
+    fetchCharacters(inputValue);
+  };
+
+  const handleCharacterSelect = (selectedOption) => {
+    const character = selectedOption.value;
     setSelectedCharacters((prevCharacters) => {
       if (!prevCharacters.some((char) => char.id === character.id)) {
         return [...prevCharacters, character];
@@ -49,41 +66,32 @@ const HomePage = () => {
     );
   };
 
-  const handleSearch = (query) => {
-    if (query.trim() === '') {
-      setCharacters([]);
-      setShowResults(false);
-    } else {
-      fetchCharacters(query);
-      setShowResults(true);
-    }
-  };
-  console.log(characters.length);
+  const options = characters.map(character => ({
+    label: character.name,
+    value: character,
+    image: character.image
+  }));
 
+  const customOption = ({ data, ...props }) => (
+    <components.Option {...props}>
+      <div className="custom-option">
+        <img src={data.image} alt={data.label} className="custom-option-image" />
+        <span>{data.label}</span>
+      </div>
+    </components.Option>
+  );
 
   return (
     <>
-      <h1 className='text-aling-center'>Rick and Morty</h1>
-      <SearchBar onSearch={handleSearch} onFocus={() => setShowResults(true)} />
-      {showResults && (
-        <div className="results-list">
-          {loading ? (
-            <div className="loading">Yükleniyor...</div>
-          ) : characters.length > 0 ? (
-            <ul>
-              {characters.map((character) => (
-                <li key={character.id} onClick={() => handleCharacterSelect(character)}>
-                  <img src={character.image} alt={character.name} className="character-image" />
-                  <span>{character.name}</span>
-                </li>
-              ))}
-            </ul>
-          ) : characters.length === 0 ? (
-            <div className="no-results">Sonuç bulunamadı</div>
-          ) : null}
-        </div>
-      )}
-
+      <h1 className='text-align-center'>Rick and Morty</h1>
+      <Select
+        inputValue={query}
+        onInputChange={handleInputChange}
+        onChange={handleCharacterSelect}
+        options={options}
+        placeholder="Search for a character"
+        components={{ Option: customOption }}
+      />
       <CharacterList characters={selectedCharacters} onCharacterDeselect={handleCharacterDeselect} />
     </>
   );

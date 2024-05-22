@@ -104,18 +104,14 @@ body {
   color: white;
 }
 
-
-/* src/pages/HomePage.css */
-
 .results-list {
-  margin-top: -10px;
+  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   max-height: 300px;
   overflow-y: auto;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 75%;
 }
 
 .results-list ul {
@@ -143,8 +139,29 @@ body {
   margin-right: 10px;
 }
 
+.custom-option {
+  display: flex;
+  align-items: center;
+}
+
+.custom-option-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
 .no-results {
   padding: 10px;
   text-align: center;
   color: #888;
+}
+
+
+.css-13cymwt-control{
+  width: 400px;
+}
+
+.css-1fdsijx-ValueContainer{
+  width: 400px;
 }
