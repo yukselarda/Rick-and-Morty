@@ -39,7 +39,7 @@ const HomePage = () => {
         setCharacters(results);
         setCache(prevCache => [...prevCache, { query, results }]);
       } catch (error) {
-        setCharacters([]);
+        setCharacters([]); // Hata durumunda sonuçları sıfırlayın
         console.error("Error fetching characters:", error);
       }
     }
@@ -84,14 +84,16 @@ const HomePage = () => {
   return (
     <>
       <h1 className='text-align-center'>Rick and Morty</h1>
-      <Select
-        inputValue={query}
-        onInputChange={handleInputChange}
-        onChange={handleCharacterSelect}
-        options={options}
-        placeholder="Search for a character"
-        components={{ Option: customOption }}
-      />
+      <div className="select-container">
+        <Select
+          inputValue={query}
+          onInputChange={handleInputChange}
+          onChange={handleCharacterSelect}
+          options={options}
+          placeholder="Doldur be Meyhaneci"
+          components={{ Option: customOption }}
+        />
+      </div>
       <CharacterList characters={selectedCharacters} onCharacterDeselect={handleCharacterDeselect} />
     </>
   );

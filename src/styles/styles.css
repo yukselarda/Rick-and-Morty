@@ -104,7 +104,7 @@ body {
   color: white;
 }
 
-.results-list {
+results-list {
   margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -157,11 +157,7 @@ body {
   color: #888;
 }
 
-
-.css-13cymwt-control{
-  width: 400px;
-}
-
-.css-1fdsijx-ValueContainer{
-  width: 400px;
+.select-container {
+  width: 80%;
+  margin: 0 auto;
 }
