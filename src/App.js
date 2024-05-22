@@ -5,9 +5,13 @@ import './styles/styles.css';
 
 const App = () => {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <>
+    <h1 className='c-white text-aling-center'>Rick And Morty</h1>
+      <div className="App">
+        <HomePage />
+      </div>
+    </>
+
   );
 };
 

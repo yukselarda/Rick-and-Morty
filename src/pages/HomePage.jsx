@@ -39,7 +39,7 @@ const HomePage = () => {
         setCharacters(results);
         setCache(prevCache => [...prevCache, { query, results }]);
       } catch (error) {
-        setCharacters([]); // Hata durumunda sonuçları sıfırlayın
+        setCharacters([]);
         console.error("Error fetching characters:", error);
       }
     }
@@ -52,13 +52,18 @@ const HomePage = () => {
 
   const handleCharacterSelect = (selectedOption) => {
     const character = selectedOption.value;
+
     setSelectedCharacters((prevCharacters) => {
-      if (!prevCharacters.some((char) => char.id === character.id)) {
+      const characterExists = prevCharacters.some((char) => char.id === character.id);
+      if (characterExists) {
+        const newCharacter = { ...character, id: `${character.id}-${Date.now()}` };
+        return [...prevCharacters, newCharacter];
+      } else {
         return [...prevCharacters, character];
       }
-      return prevCharacters;
     });
   };
+
 
   const handleCharacterDeselect = (characterId) => {
     setSelectedCharacters((prevCharacters) =>
@@ -66,10 +71,15 @@ const HomePage = () => {
     );
   };
 
+
+
+
+
+
   const options = characters.map(character => ({
     label: character.name,
     value: character,
-    image: character.image
+    image: character.image,
   }));
 
   const customOption = ({ data, ...props }) => (
@@ -83,7 +93,6 @@ const HomePage = () => {
 
   return (
     <>
-      <h1 className='text-align-center'>Rick and Morty</h1>
       <div className="select-container">
         <Select
           inputValue={query}
