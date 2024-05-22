@@ -6,7 +6,7 @@ const CharacterCard = ({ character, onCharacterSelect, onCharacterDeselect, isSe
       <img src={character.image} alt={character.name} />
       <div>
         <div className='card-flex'>
-          <h2>Name:</h2>
+          <h2>Ad:</h2>
           <span>{character.name}</span>
         </div>
         <div className='card-flex'>

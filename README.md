@@ -25,7 +25,7 @@ Proje bağımlılıklarını yüklemek ve çalıştırmak için aşağıdaki ad�
 
 1. Depoyu klonlayın:
     ```bash
-    git clone https://github.com/username/rick-and-morty-search.git
+    git clone https://github.com/yukselarda/rick-and-morty-search.git
     cd rick-and-morty-search
     ```
 

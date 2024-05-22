@@ -99,7 +99,7 @@ const HomePage = () => {
           onInputChange={handleInputChange}
           onChange={handleCharacterSelect}
           options={options}
-          placeholder="Doldur be Meyhaneci"
+          placeholder="İsim Yazın"
           components={{ Option: customOption }}
         />
       </div>
