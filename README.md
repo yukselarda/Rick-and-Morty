@@ -1,5 +1,5 @@
 # Netlify Canlı Örneği
-Netlify linki: arda-rick-and-morty.netlify.app
+Netlify linki: [text](http:arda-rick-and-morty.netlify.app) 
 
 Bu bağlantıya tıkladıklarında, uygulamanın canlı çalıştığı web sitesine yönlendirilecekler. Bu, projenizi sergilemek ve paylaşmak için harika bir yol!
 
