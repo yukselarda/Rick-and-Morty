@@ -1,3 +1,13 @@
+# Netlify Canlı Örneği
+Netlify linki: arda-rick-and-morty.netlify.app
+
+Bu bağlantıya tıkladıklarında, uygulamanın canlı çalıştığı web sitesine yönlendirilecekler. Bu, projenizi sergilemek ve paylaşmak için harika bir yol!
+
+Yapılan işlerin dökümante edilmesi, katkıda bulunmak isteyenler için faydalı olabilir. Yapılan değişiklikler, projenin daha da gelişmesini sağlayabilir.
+
+Katkıda bulunmak isteyenler için yönergeleri net bir şekilde belirttiğiniz için teşekkürler! Bu, açık kaynak projelerin büyümesine ve gelişmesine katkıda bulunmanın önemli bir parçasıdır.
+
+
 # Rick and Morty Character Search
 
 Bu proje, Rick and Morty API'sini kullanarak karakter araması yapmanızı sağlayan bir React uygulamasıdır. Arama yaparken her bir karakterin detaylarını görebilir ve istediğiniz karakterleri ana sayfada kalıcı olarak tutabilirsiniz.
